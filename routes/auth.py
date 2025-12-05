@@ -28,8 +28,11 @@ def signup():
         # Set session
         session['user_id'] = user_id
         
-        # Send welcome email
-        email_utils.send_welcome_email(email, full_name or 'User')
+        # Send welcome email (non-blocking - don't fail signup if email fails)
+        try:
+            email_utils.send_welcome_email(email, full_name or 'User')
+        except Exception as email_error:
+            print(f"Warning: Failed to send welcome email: {email_error}")
         
         return jsonify({
             "status": "success", 
@@ -40,8 +43,9 @@ def signup():
                 "full_name": full_name,
                 "profile_photo": None
             }
-        })
+        }), 200
     except Exception as e:
+        print(f"Signup error: {str(e)}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @auth_bp.route('/login', methods=['POST'])
@@ -73,8 +77,9 @@ def login():
                 "full_name": user['full_name'],
                 "profile_photo": user['profile_photo']
             }
-        })
+        }), 200
     except Exception as e:
+        print(f"Login error: {str(e)}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @auth_bp.route('/logout', methods=['POST'])

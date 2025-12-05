@@ -35,7 +35,29 @@ export async function apiCall(endpoint, method = "GET", body = null) {
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
-    const data = await response.json();
+    
+    // Check if response has content before parsing JSON
+    const contentType = response.headers.get("content-type");
+    let data = null;
+    
+    if (contentType && contentType.includes("application/json")) {
+      const text = await response.text();
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          console.error("Failed to parse JSON:", text);
+          throw new Error("Server returned invalid JSON response");
+        }
+      } else {
+        throw new Error("Server returned empty response");
+      }
+    } else {
+      // Non-JSON response (likely an error page or empty response)
+      const text = await response.text();
+      console.error("Non-JSON response:", text);
+      throw new Error("Server error: " + (response.statusText || "Invalid response"));
+    }
 
     if (response.status === 401) {
       showToast('Session expired. Please login again.', 'error');
@@ -44,7 +66,7 @@ export async function apiCall(endpoint, method = "GET", body = null) {
     }
 
     if (!response.ok) {
-      throw new Error(data.message || "API Request Failed");
+      throw new Error(data?.message || "API Request Failed");
     }
 
     return data;
