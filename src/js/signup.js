@@ -5,7 +5,7 @@ const submitBtn = document.getElementById('submitBtn');
 const passwordInput = document.getElementById('password');
 const confirmPasswordInput = document.getElementById('confirmPassword');
 
-// Real-time validation
+// Real-time password validation
 function validatePasswords() {
     if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
         confirmPasswordInput.style.borderColor = 'hsl(var(--destructive))';
@@ -21,20 +21,29 @@ confirmPasswordInput.addEventListener('input', validatePasswords);
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
+    
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
+
+    // Validation
+    if (!name || !email || !password) {
+        showToast('Please fill in all fields', 'error');
+        return;
+    }
 
     if (password !== confirmPassword) {
         showToast('Passwords do not match', 'error');
         return;
     }
+    
     if (password.length < 8) {
         showToast('Password must be at least 8 characters', 'error');
         return;
     }
 
+    // Disable button and show loading
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
 
@@ -47,20 +56,18 @@ form.addEventListener('submit', async (e) => {
 
         if (response.status === 'success') {
             showToast('Account created successfully!');
-            // Auto-login by storing user for UI (session cookie handled by browser)
-            const user = {
-                id: response.user.id,
-                email: email,
-                full_name: name,
-                profile_photo: null
-            };
-            localStorage.setItem('user', JSON.stringify(user));
+            
+            // Store user data
+            localStorage.setItem('user', JSON.stringify(response.user));
+            
+            // Redirect to home
             setTimeout(() => {
                 window.location.href = 'index.html';
-            }, 1500);
+            }, 1000);
         } else {
             throw new Error(response.message || 'Failed to sign up');
         }
+        
     } catch (error) {
         showToast(error.message || "Failed to sign up", 'error');
         submitBtn.disabled = false;

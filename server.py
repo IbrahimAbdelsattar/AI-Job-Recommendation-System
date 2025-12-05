@@ -42,6 +42,30 @@ def serve_index():
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
 
+# Global error handlers to ensure JSON responses for API routes
+@app.errorhandler(404)
+def not_found_error(error):
+    # Check if it's an API request
+    if request.path.startswith('/api/'):
+        return jsonify({"status": "error", "message": "Endpoint not found"}), 404
+    # For non-API requests, serve 404 page or redirect
+    return send_from_directory(app.static_folder, 'index.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    print(f"Internal server error: {str(error)}")
+    return jsonify({"status": "error", "message": "Internal server error"}), 500
+
+@app.errorhandler(Exception)
+def handle_exception(error):
+    # Log the error
+    print(f"Unhandled exception: {str(error)}")
+    # Return JSON for API routes
+    if request.path.startswith('/api/'):
+        return jsonify({"status": "error", "message": str(error)}), 500
+    # For non-API routes, return generic error
+    return jsonify({"status": "error", "message": "An error occurred"}), 500
+
 if __name__ == '__main__':
     print("Starting Neuronix AI JobFlow Server...")
     port = int(os.getenv('PORT', 5000))

@@ -17,15 +17,13 @@ export function showToast(message, type = "success") {
 // Backend API URL - Empty string for relative paths (same origin)
 export const API_URL = "";
 
-// API Helper
+// API Helper - Simplified and robust
 export async function apiCall(endpoint, method = "GET", body = null) {
-  const headers = {
-    "Content-Type": "application/json",
-  };
-
   const config = {
     method,
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+    },
     credentials: 'include',
   };
 
@@ -36,42 +34,35 @@ export async function apiCall(endpoint, method = "GET", body = null) {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, config);
     
-    // Check if response has content before parsing JSON
-    const contentType = response.headers.get("content-type");
-    let data = null;
+    // Always get text first
+    const text = await response.text();
     
-    if (contentType && contentType.includes("application/json")) {
-      const text = await response.text();
-      if (text) {
-        try {
-          data = JSON.parse(text);
-        } catch (e) {
-          console.error("Failed to parse JSON:", text);
-          throw new Error("Server returned invalid JSON response");
-        }
-      } else {
-        throw new Error("Server returned empty response");
-      }
-    } else {
-      // Non-JSON response (likely an error page or empty response)
-      const text = await response.text();
-      console.error("Non-JSON response:", text);
-      throw new Error("Server error: " + (response.statusText || "Invalid response"));
+    // Try to parse as JSON
+    let data;
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch (parseError) {
+      // Not JSON - likely HTML error page
+      console.error('Failed to parse response as JSON:', text.substring(0, 200));
+      throw new Error(`Server error (${response.status}): ${response.statusText || 'Invalid response'}`);
     }
-
+    
+    // Handle 401 Unauthorized
     if (response.status === 401) {
       showToast('Session expired. Please login again.', 'error');
       setTimeout(() => window.location.href = 'login.html', 1500);
       throw new Error('Unauthorized');
     }
-
+    
+    // Handle other errors
     if (!response.ok) {
-      throw new Error(data?.message || "API Request Failed");
+      throw new Error(data.message || `Request failed (${response.status})`);
     }
-
+    
     return data;
+    
   } catch (error) {
-    console.error("API Error:", error);
+    console.error('API Error:', error);
     throw error;
   }
 }
