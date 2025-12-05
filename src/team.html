@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Neuronix AI JobFlow</title>
+    <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span style="background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))); -webkit-background-clip: text; background-clip: text; color: transparent;">Neuronix AI Solutions</span>
+            </a>
+            <div class="nav-links" style="gap: 1rem; align-items: center;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="team.html" class="nav-link" style="color: hsl(var(--primary)); font-weight: 600;">Team</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+                    <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+                    <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+                </button>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div id="authButtons" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="userDropdown" style="display: none; position: relative;">
+                    <button id="userMenuBtn" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; border-radius: var(--radius); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='none'">
+                        <div id="userPhoto"></div>
+                        <span id="userName" style="font-weight: 600; color: hsl(var(--foreground));"></span>
+                        <i data-lucide="chevron-down" style="width: 1rem; height: 1rem;"></i>
+                    </button>
+                    
+                    <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 200px; z-index: 1000;">
+                        <a href="profile.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="user" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="history.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>History</span>
+                        </a>
+                        <a href="saved-jobs.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="bookmark" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Saved Jobs</span>
+                        </a>
+                        <div style="border-top: 1px solid hsl(var(--border)); margin: 0.5rem 0;"></div>
+                        <a href="#" id="logoutBtn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--destructive)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="text-center mb-16" style="margin-bottom: 4rem;">
+                <h1 class="text-5xl font-bold mb-4" style="font-size: 3rem; line-height: 1.2; margin-bottom: 1rem;">
+                    Our <span class="text-primary" style="color: hsl(var(--primary));">Team</span>
+                </h1>
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto" style="font-size: 1.125rem; max-width: 42rem; margin-left: auto; margin-right: auto; color: hsl(var(--muted-foreground));">
+                    Our talented team of engineers, designers, and data scientists working together to revolutionize job matching with AI.
+                </p>
+            </div>
+
+            <!-- Team Grid -->
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto" id="teamContainer" style="max-width: 72rem; margin-left: auto; margin-right: auto; gap: 2rem;">
+                <!-- Team members will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span class="font-bold text-lg">Neuronix AI Solutions</span>
+            </div>
+            <p class="text-muted-foreground text-center" style="font-size: 0.875rem;">Empowering the Future with AI</p>
+            <p class="text-muted-foreground" style="font-size: 0.75rem;">© 2025 Neuronix AI Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+
+        const teamMembers = [
+            {
+                name: "Ibrahim Abdelsattar",
+                role: "Team Leader & AI Engineer",
+                image: "assets/ibrahim-abdelsattar.jpg",
+                linkedin: "https://www.linkedin.com/in/ibrahim-abdelsattar/"
+            },
+            {
+                name: "Ahmed Tamer",
+                role: "Frontend Developer",
+                image: "assets/ahmed-tamer.png",
+                linkedin: "https://www.linkedin.com/in/ahmed-tamer-4a3459317/"
+            },
+            {
+                name: "Ahmed Ouda",
+                role: "UI/UX Designer",
+                image: "assets/ahmed-ouda.png",
+                linkedin: "https://www.linkedin.com/in/ahmed-ouda-1b5321342/"
+            },
+            {
+                name: "Ahmed Zayed",
+                role: "Data Scientist",
+                image: "assets/ahmed-zayed.png",
+                linkedin: "https://www.linkedin.com/in/ahmed-zayed%E2%80%AC%E2%80%8F-b85b0528b/"
+            },
+            {
+                name: "Ahmed Samir",
+                role: "Data Scientist",
+                image: "assets/ahmed-samir.png",
+                linkedin: "https://www.linkedin.com/in/ahmed-samir-897a92367/"
+            },
+            {
+                name: "Ibrahim Omar",
+                role: "UI/UX Designer",
+                image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ibrahim2",
+                linkedin: "https://www.linkedin.com/in/ibrahim-omar-for-business/"
+            },
+            {
+                name: "Ahmed Abdelmonam",
+                role: "Data Scientist",
+                image: "assets/ahmed-abdelmonam.jpg",
+                linkedin: "https://www.linkedin.com/in/ahmed-abd-elmonem-973110256?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+            },
+            {
+                name: "Esraa Abdelrazek",
+                role: "Cyber Security",
+                image: "assets/esraa-abdelrazek.jpg",
+                linkedin: "https://www.linkedin.com/in/esraa-abdul-razek-b2a20a28b/"
+            },
+        ];
+
+        const container = document.getElementById('teamContainer');
+        teamMembers.forEach(member => {
+            const card = document.createElement('div');
+            card.className = 'team-card';
+            card.style.textAlign = 'center';
+            card.style.padding = '2rem';
+            card.style.transition = 'all 0.3s ease';
+
+            card.innerHTML = `
+                <div class="mb-6" style="margin-bottom: 1.5rem; display: flex; justify-content: center;">
+                    <img src="${member.image}" alt="${member.name}" style="width: 8rem; height: 8rem; border-radius: 50%; object-fit: cover; border: 3px solid hsl(var(--border));">
+                </div>
+                <h3 class="text-xl font-bold mb-2" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: hsl(var(--foreground));">
+                    ${member.name}
+                </h3>
+                <p class="text-muted-foreground" style="color: hsl(var(--muted-foreground)); font-size: 0.9375rem; margin-bottom: 1rem;">
+                    ${member.role}
+                </p>
+                <div style="display: flex; justify-content: center;">
+                    <a href="${member.linkedin}" target="_blank" class="linkedin-link" style="display: inline-block; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" aria-label="LinkedIn">
+                        <img src="assets/linkedin.png" alt="LinkedIn" class="linkedin-icon" style="width: 1.5rem; height: 1.5rem;">
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Initialize icons for any other elements that might need it (though we replaced the dynamic one)
+        lucide.createIcons();
+    </script>
+    <script type="module">
+        import { initNavbar } from './auth.js';
+        
+        // Initialize navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            
+            // Setup logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    import('./auth.js').then(module => {
+                        module.logout();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

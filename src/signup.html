@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Neuronix AI JobFlow</title>
+    <link rel="icon" href="assets/favicon.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container nav-content">
+        <a href="index.html" class="nav-brand">
+          <i data-lucide="brain" class="text-primary"></i>
+          <span
+            style="
+              background: linear-gradient(
+                to right,
+                hsl(var(--primary)),
+                hsl(var(--accent))
+              );
+              -webkit-background-clip: text;
+              color: transparent;
+            "
+            >Neuronix AI Solutions</span
+          >
+        </a>
+        <div class="nav-links" style="gap: 1rem">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="team.html" class="nav-link">Team</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle color theme"
+          >
+            <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+            <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+          </button>
+          <a href="login.html" class="btn btn-outline">Try for Free</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+      <div class="container max-w-md">
+        <div class="text-center mb-8">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <i
+              data-lucide="user-plus"
+              style="width: 40px; height: 40px"
+              class="text-primary"
+            ></i>
+          </div>
+          <h1 class="text-4xl font-bold mb-2">
+            Create <span class="text-primary">Account</span>
+          </h1>
+          <p class="text-muted-foreground">Join Neuronix AI Solutions today</p>
+        </div>
+
+        <div class="card">
+          <form id="signupForm" class="space-y-6" autocomplete="off">
+            <div class="space-y-2">
+              <label for="name" class="label">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                class="input"
+                placeholder="John Doe"
+                required
+                autocomplete="off"
+                name="fullname_new"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label for="email" class="label">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="input"
+                placeholder="your@email.com"
+                required
+                autocomplete="off"
+                name="email_new"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label for="password" class="label">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="input"
+                placeholder="••••••••"
+                required
+                autocomplete="new-password"
+                name="password_new"
+              />
+              <p class="text-muted-foreground" style="font-size: 0.75rem">
+                Must be at least 8 characters
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <label for="confirmPassword" class="label"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="confirmPassword"
+                class="input"
+                placeholder="••••••••"
+                required
+                autocomplete="new-password"
+                name="password_confirm_new"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary w-full btn-lg"
+              id="submitBtn"
+            >
+              Sign Up
+            </button>
+          </form>
+
+          <div class="text-center" style="margin-top: 1.5rem">
+            <p class="text-muted-foreground" style="font-size: 0.875rem">
+              Already have an account?
+              <a
+                href="login.html"
+                class="text-primary font-bold"
+                style="text-decoration: none"
+                >Login</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-content">
+        <div class="flex items-center gap-2">
+          <i data-lucide="brain" class="text-primary"></i>
+          <span class="font-bold text-lg">Neuronix AI Solutions</span>
+        </div>
+        <p
+          class="text-muted-foreground text-center"
+          style="font-size: 0.875rem"
+        >
+          Empowering the Future with AI
+        </p>
+        <p class="text-muted-foreground" style="font-size: 0.75rem">
+          © 2025 Neuronix AI Solutions. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+
+    <script type="module" src="js/signup.js"></script>
+  </body>
+</html>

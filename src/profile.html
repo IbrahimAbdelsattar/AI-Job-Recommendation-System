@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Neuronix AI JobFlow</title>
+    <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <style>
+        .profile-photo-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+        }
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid hsl(var(--primary));
+            background: hsl(var(--muted));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: hsl(var(--muted-foreground));
+        }
+        .photo-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            color: white;
+            border: 3px solid hsl(var(--background));
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .photo-upload-btn:hover {
+            transform: scale(1.1);
+        }
+        #photoInput {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span style="background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))); -webkit-background-clip: text; background-clip: text; color: transparent;">Neuronix AI Solutions</span>
+            </a>
+            <div class="nav-links" style="gap: 1rem;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="history.html" class="nav-link">History</a>
+                <a href="saved-jobs.html" class="nav-link">Saved Jobs</a>
+                <a href="profile.html" class="nav-link" style="color: hsl(var(--primary)); font-weight: 600;">Profile</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+                    <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+                    <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+                </button>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div id="authButtons" style="display: flex; gap: 0.5rem;">
+                    <a href="signup.html" class="btn btn-primary">Try for Free</a>
+                </div>
+                
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="userDropdown" style="display: none; position: relative;">
+                    <button id="userMenuBtn" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; border-radius: var(--radius); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='none'">
+                        <div id="userPhoto"></div>
+                        <span id="userName" style="font-weight: 600; color: hsl(var(--foreground));"></span>
+                        <i data-lucide="chevron-down" style="width: 1rem; height: 1rem;"></i>
+                    </button>
+                    
+                    <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 200px; z-index: 1000;">
+                        <a href="profile.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="user" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="history.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>History</span>
+                        </a>
+                        <a href="saved-jobs.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="bookmark" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Saved Jobs</span>
+                        </a>
+                        <div style="border-top: 1px solid hsl(var(--border)); margin: 0.5rem 0;"></div>
+                        <a href="#" id="logoutBtn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--destructive)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+        <div class="container max-w-3xl">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">User <span class="text-primary">Profile</span></h1>
+                <p class="text-lg text-muted-foreground">Manage your account settings</p>
+            </div>
+
+            <!-- Profile Photo -->
+            <div class="card mb-6">
+                <div class="profile-photo-container">
+                    <div class="profile-photo" id="profilePhotoDisplay">
+                        <i data-lucide="user" style="width: 4rem; height: 4rem;"></i>
+                    </div>
+                    <label for="photoInput" class="photo-upload-btn" title="Upload photo">
+                        <i data-lucide="camera" style="width: 1.25rem; height: 1.25rem;"></i>
+                    </label>
+                    <input type="file" id="photoInput" accept="image/*">
+                </div>
+                <p class="text-center text-sm text-muted-foreground mb-4">Click the camera icon to upload a new photo</p>
+            </div>
+
+            <!-- Profile Information -->
+            <div class="card mb-6">
+                <h2 class="text-2xl font-bold mb-6">Profile Information</h2>
+                <form id="profileForm" class="space-y-6" autocomplete="off">
+                    <div class="space-y-2">
+                        <label for="fullName" class="label">Full Name</label>
+                        <input type="text" id="fullName" class="input" placeholder="Your name" autocomplete="off" name="profile_name">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="email" class="label">Email</label>
+                        <input type="email" id="email" class="input" placeholder="your@email.com" autocomplete="off" name="profile_email">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="updateProfileBtn">
+                        Update Profile
+                    </button>
+                </form>
+            </div>
+
+            <!-- Change Password -->
+            <div class="card">
+                <h2 class="text-2xl font-bold mb-6">Change Password</h2>
+                <form id="passwordForm" class="space-y-6" autocomplete="off">
+                    <div class="space-y-2">
+                        <label for="currentPassword" class="label">Current Password</label>
+                        <input type="password" id="currentPassword" class="input" placeholder="••••••••" autocomplete="new-password" name="pwd_current">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="newPassword" class="label">New Password</label>
+                        <input type="password" id="newPassword" class="input" placeholder="••••••••" autocomplete="new-password" name="pwd_new">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="confirmNewPassword" class="label">Confirm New Password</label>
+                        <input type="password" id="confirmNewPassword" class="input" placeholder="••••••••" autocomplete="new-password" name="pwd_confirm">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="changePasswordBtn">
+                        Change Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span class="font-bold text-lg">Neuronix AI Solutions</span>
+            </div>
+            <p class="text-muted-foreground text-center" style="font-size: 0.875rem;">Empowering the Future with AI</p>
+            <p class="text-muted-foreground" style="font-size: 0.75rem;">© 2025 Neuronix AI Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cropper Modal -->
+    <div id="cropperModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: hsl(var(--card)); padding: 2rem; border-radius: var(--radius); width: 90%; max-width: 500px; max-height: 90vh; overflow: auto; display: flex; flex-direction: column;">
+            <h2 class="text-2xl font-bold mb-4">Crop Photo</h2>
+            <div style="max-height: 400px; margin-bottom: 1rem; overflow: hidden;">
+                <img id="cropperImage" src="" alt="Picture to crop" style="max-width: 100%;">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+                <button id="cancelCropBtn" class="btn btn-outline">Cancel</button>
+                <button id="cropBtn" class="btn btn-primary">Save Photo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script type="module" src="js/profile.js"></script>
+</body>
+</html>

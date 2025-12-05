@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Neuronix AI JobFlow</title>
+    <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-brand">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span style="background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent))); -webkit-background-clip: text; background-clip: text; color: transparent;">Neuronix AI Solutions</span>
+            </a>
+            <div class="nav-links" style="gap: 1rem; align-items: center;">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="contact.html" class="nav-link" style="color: hsl(var(--primary)); font-weight: 600;">Contact</a>
+                <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+                    <i data-lucide="moon" class="theme-icon theme-icon-moon"></i>
+                    <i data-lucide="sun" class="theme-icon theme-icon-sun"></i>
+                </button>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div id="authButtons" style="display: flex; gap: 0.5rem;">
+                    <a href="login.html" class="btn btn-outline">Login</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                
+                <!-- User Dropdown (shown when logged in) -->
+                <div id="userDropdown" style="display: none; position: relative;">
+                    <button id="userMenuBtn" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; border-radius: var(--radius); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='none'">
+                        <div id="userPhoto"></div>
+                        <span id="userName" style="font-weight: 600; color: hsl(var(--foreground));"></span>
+                        <i data-lucide="chevron-down" style="width: 1rem; height: 1rem;"></i>
+                    </button>
+                    
+                    <div id="dropdownMenu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-width: 200px; z-index: 1000;">
+                        <a href="profile.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="user" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="history.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clock" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>History</span>
+                        </a>
+                        <a href="saved-jobs.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--foreground)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="bookmark" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Saved Jobs</span>
+                        </a>
+                        <div style="border-top: 1px solid hsl(var(--border)); margin: 0.5rem 0;"></div>
+                        <a href="#" id="logoutBtn" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; text-decoration: none; color: hsl(var(--destructive)); transition: background 0.2s;" onmouseover="this.style.background='hsl(var(--muted))'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="log-out" style="width: 1.25rem; height: 1.25rem;"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen pt-32 pb-20">
+        <div class="container max-w-4xl">
+            <div class="text-center mb-12">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <i data-lucide="mail" style="width: 48px; height: 48px;" class="text-primary"></i>
+                </div>
+                <h1 class="text-4xl font-bold mb-4">Contact <span class="text-primary">Us</span></h1>
+                <p class="text-lg text-muted-foreground">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <form id="contactForm" class="space-y-6" autocomplete="off">
+                        <div class="space-y-2">
+                            <label for="name" class="label">Name *</label>
+                            <input type="text" id="name" class="input" placeholder="Your name" required autocomplete="off" name="contact_name">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="email" class="label">Email *</label>
+                            <input type="email" id="email" class="input" placeholder="your@email.com" required autocomplete="off" name="contact_email">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="subject" class="label">Subject *</label>
+                            <input type="text" id="subject" class="input" placeholder="What is this about?" required autocomplete="off" name="contact_subject">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="message" class="label">Message *</label>
+                            <textarea id="message" class="textarea" rows="6" placeholder="Your message..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full btn-lg">
+                            <i data-lucide="send" style="width: 1rem; height: 1rem; margin-right: 0.5rem;"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="card" style="background: linear-gradient(to bottom right, rgba(var(--primary), 0.1), rgba(var(--accent), 0.1)); padding: 1.5rem;">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="message-square" style="width: 2rem; height: 2rem; margin-top: 0.25rem;" class="text-primary"></i>
+                            <div>
+                                <h3 class="font-bold text-lg mb-2">Get in Touch</h3>
+                                <p class="text-muted-foreground">
+                                    Whether you have a question about features, pricing, need a demo, 
+                                    or anything else, our team is ready to answer all your questions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 1.5rem;">
+                        <h3 class="font-bold text-lg mb-4">Contact Information</h3>
+                        <div class="space-y-3 text-muted-foreground">
+                            <p><strong>Email:</strong> neuronixaisolutions@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="background-color: hsl(var(--muted)); padding: 1.5rem;">
+                        <h3 class="font-bold text-lg mb-2">Quick Response</h3>
+                        <p class="text-muted-foreground text-sm">
+                            We typically respond within 24 hours during business days. 
+                            For urgent matters, please mention it in your subject line.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="flex items-center gap-2">
+                <i data-lucide="brain" class="text-primary"></i>
+                <span class="font-bold text-lg">Neuronix AI Solutions</span>
+            </div>
+            <p class="text-muted-foreground text-center" style="font-size: 0.875rem;">Empowering the Future with AI</p>
+            <p class="text-muted-foreground" style="font-size: 0.75rem;">© 2025 Neuronix AI Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script type="module">
+        import { showToast } from './app.js';
+
+        const form = document.getElementById('contactForm');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        // ============================================================================
+        // GOOGLE FORM CONFIGURATION
+        // ============================================================================
+        // TODO: Replace the values below with your actual Google Form details.
+        // 
+        // HOW TO GET THESE IDs:
+        // 1. Create a Google Form with Short Answer fields for Name, Email, Subject 
+        //    and a Paragraph field for Message.
+        // 2. Click the "Get pre-filled link" option in the form menu (three dots).
+        // 3. Fill in dummy data (e.g., "name123", "email123") and click "Get link".
+        // 4. Copy the link and paste it into a text editor.
+        // 5. Look for parameters like 'entry.123456789=name123'. The number is the ID.
+        // 6. The Form ID is the long string in the URL between '/d/e/' and '/viewform'.
+        // ============================================================================
+        
+        const FORM_ID = "1FAIpQLSfeVsVomJ2Ale95yRTX9Yzm4n6MKq8egWTQV2cgiPGw-ecIWw";
+        const GOOGLE_FORM_ACTION_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`;
+        
+        const ENTRY_IDS = {
+            name: "entry.1884265043",
+            email: "entry.1212348438",
+            subject: "entry.513669972",
+            message: "entry.813454657"
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Create FormData object for Google Forms
+            const formData = new FormData();
+            formData.append(ENTRY_IDS.name, document.getElementById('name').value);
+            formData.append(ENTRY_IDS.email, document.getElementById('email').value);
+            formData.append(ENTRY_IDS.subject, document.getElementById('subject').value);
+            formData.append(ENTRY_IDS.message, document.getElementById('message').value);
+
+            try {
+                // We use mode: 'no-cors' because Google Forms doesn't allow CORS access from other domains.
+                // This means we won't get a readable response (status will be 0), but the submission will go through.
+                await fetch(GOOGLE_FORM_ACTION_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                // Assume success if no network error occurred
+                showToast("Message sent successfully via Google Forms!");
+                form.reset();
+                
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to send message. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-lucide="send" style="width: 1rem; height: 1rem; margin-right: 0.5rem;"></i> Send Message';
+                lucide.createIcons();
+            }
+        });
+    </script>
+    <script type="module">
+        import { initNavbar } from './auth.js';
+        
+        // Initialize navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavbar();
+            
+            // Setup logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    import('./auth.js').then(module => {
+                        module.logout();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
