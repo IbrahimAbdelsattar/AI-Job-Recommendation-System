@@ -1,0 +1,8 @@
+services:
+  - type: web         
+    name: ai-job-recommendation-frontend
+    runtime: static  
+    plan: free        
+    branch: main    
+    rootDir: .       
+    staticPublishPath: .  
